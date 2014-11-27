@@ -19,3 +19,10 @@ var Person = Backbone.Model.extend({
     return this.get('name') + ' is working.';
   }
 });
+
+var sparrow = new Person({name: 'sparrow', age: 28, occupation: 'dev'});
+sparrow.on("invalid", function(model, error){
+  alert(error);
+});
+
+sparrow.save("age", -2);
