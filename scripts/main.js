@@ -20,12 +20,12 @@ var PeopleView = Backbone.View.extend({
     console.log(this);
     // loop over all the person objects
     this.collection.each(function(person){
+      // should call render for the person objects
       var personView = new PersonView({model: person});
-      console.log(personView.el);
-      console.log(this);
-    });
-    // should call render for the person objects
-    // should display a collection as HTML
+      // display a collection as HTML
+      this.$el.append(personView.el);
+    }, this);
+
   }
 });
 
@@ -65,3 +65,4 @@ var personCollection = new PersonCollection([
 
 var peopleView = new PeopleView( {collection: personCollection} );
 peopleView.render();
+console.log(peopleView.el);
