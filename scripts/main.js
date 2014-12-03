@@ -11,7 +11,7 @@ var PersonView = Backbone.View.extend({
   className: 'person',
   id: 'person-id',
 
-  template: _.template(" () - "),
+  template: _.template("<strong><%= name %></strong> (<%= age %>) - <%= occupation %>"),
 
   initialize: function () {
     this.render();
@@ -19,7 +19,7 @@ var PersonView = Backbone.View.extend({
 
   render: function() {
     // anti-pattern
-    this.$el.html( this.model.get('name') + ' (' + this.model.get('age') + ') - ' + this.model.get('occupation') );
+    this.$el.html( this.template(this.model.toJSON()));
   }
 });
 
@@ -28,3 +28,4 @@ var personView = new PersonView({model: sparrow});
 
 console.log(personView.el);
 console.log(personView.$el);
+$(document.body).html(personView.el);
