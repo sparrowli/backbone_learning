@@ -27,17 +27,22 @@ var PersonView = Backbone.View.extend({
   }
 });
 
-var personCollection = new PersonCollection();
-
-var user = new Person();
-var userView = new PersonView({model: user});
-
-var sparrow = new Person({name: 'sparrow', age: '28', occupation: 'dev'});
-var personView = new PersonView({model: sparrow});
-
-personCollection.add(user);
-personCollection.add(sparrow);
+var personCollection = new PersonCollection([
+  {
+      name: 'Mohit Jain',
+      age: 26
+  },
+  {
+      name: 'Taroon Tyagi',
+      age: 25,
+      occupation: 'web designer'
+  },
+  {
+      name: 'Rahul Narang',
+      age: 26,
+      occupation: 'Java Developer'
+  }
+]);
 
 console.log(personCollection);
 console.log(personCollection.toJSON());
-$(document.body).html(personView.el);
