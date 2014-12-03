@@ -6,6 +6,10 @@ var Person = Backbone.Model.extend({
   }
 });
 
+var PersonCollection = Backbone.Collection.extend({
+  model: Person
+});
+
 var PersonView = Backbone.View.extend({
   tagName: 'li',
   className: 'person',
@@ -23,9 +27,17 @@ var PersonView = Backbone.View.extend({
   }
 });
 
+var personCollection = new PersonCollection();
+
+var user = new Person();
+var userView = new PersonView({model: user});
+
 var sparrow = new Person({name: 'sparrow', age: '28', occupation: 'dev'});
 var personView = new PersonView({model: sparrow});
 
-console.log(personView.el);
-console.log(personView.$el);
+personCollection.add(user);
+personCollection.add(sparrow);
+
+console.log(personCollection);
+console.log(personCollection.toJSON());
 $(document.body).html(personView.el);
