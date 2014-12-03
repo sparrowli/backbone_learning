@@ -11,7 +11,7 @@ var PersonView = Backbone.View.extend({
   className: 'person',
   id: 'person-id',
 
-  template: _.template("<strong><%= name %></strong> (<%= age %>) - <%= occupation %>"),
+  template: _.template($('#personTemplate').html()),
 
   initialize: function () {
     this.render();
