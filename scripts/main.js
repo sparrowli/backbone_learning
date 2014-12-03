@@ -10,6 +10,16 @@ var PersonCollection = Backbone.Collection.extend({
   model: Person
 });
 
+var PeopleView = Backbone.View.extend({
+  tagName: 'ul',
+
+  render: function () {
+    // loop over all the person objects
+    // should call render for the person objects
+    // should display a collection as HTML
+  }
+});
+
 var PersonView = Backbone.View.extend({
   tagName: 'li',
   className: 'person',
