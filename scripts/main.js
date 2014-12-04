@@ -45,12 +45,16 @@ App.Views.Person = Backbone.View.extend({
   tagName: 'li',
 
   events: {
-   'click strong' : 'showAlert'
-
+   'click .edit' : 'editPerson'
   },
 
-  showAlert: function(){
-      alert("You clicked me");
+  initialize: function(){
+      this.model.on('change', this.render, this);
+  },
+  
+  editPerson: function(){
+    var newName = prompt("Please enter the new name", this.model.get('name'));
+    this.model.set('name', newName);
   },
 
 
