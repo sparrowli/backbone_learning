@@ -51,9 +51,10 @@ App.Views.Person = Backbone.View.extend({
   initialize: function(){
       this.model.on('change', this.render, this);
   },
-  
+
   editPerson: function(){
     var newName = prompt("Please enter the new name", this.model.get('name'));
+    if (!newName)return;
     this.model.set('name', newName);
   },
 
