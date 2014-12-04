@@ -45,11 +45,13 @@ App.Views.Person = Backbone.View.extend({
   tagName: 'li',
 
   events: {
-   'click .edit' : 'editPerson'
+   'click .edit' : 'editPerson',
+   'click .delete' : 'DestroyPerson'
   },
 
   initialize: function(){
       this.model.on('change', this.render, this);
+      this.model.on('destroy', this.remove, this); 
   },
 
   editPerson: function(){
@@ -58,6 +60,13 @@ App.Views.Person = Backbone.View.extend({
     this.model.set('name', newName);
   },
 
+  DestroyPerson: function(){
+      this.model.destroy();
+  },
+
+  remove: function(){
+      this.$el.remove();
+  },
 
   template: template('personTemplate'), 
   render: function() {
