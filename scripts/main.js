@@ -1,28 +1,38 @@
-var template = function (id) {
+(function() {
+
+window.App = {
+  Models: {},
+  Collections: {},
+  Views: {}
+};
+
+window.template = function(id) {
   return _.template( $('#' + id).html() );
 };
 
-var Person = Backbone.Model.extend({
+
+// Person Model
+App.Models.Person = Backbone.Model.extend({
   defaults: {
     name: 'Guest User',
-    age: 23,
-    occupation: 'Workser'
+    age: 30,
+    occupation: 'worker'
   }
 });
 
-var PersonCollection = Backbone.Collection.extend({
-  model: Person
+// A List of People
+App.Collections.People = Backbone.Collection.extend({
+  model: App.Models.Person
 });
 
-var PeopleView = Backbone.View.extend({
+
+// View for all people
+App.Views.People = Backbone.View.extend({
   tagName: 'ul',
 
-  render: function () {
-    // loop over all the person objects
-    this.collection.each(function(person){
-      // should call render for the person objects
-      var personView = new PersonView({model: person});
-      // display a collection as HTML
+  render: function() {
+    this.collection.each(function(person) {
+      var personView = new App.Views.Person({ model: person });
       this.$el.append(personView.render().el);
     }, this);
 
@@ -30,36 +40,45 @@ var PeopleView = Backbone.View.extend({
   }
 });
 
-var PersonView = Backbone.View.extend({
+// The View for a Person
+App.Views.Person = Backbone.View.extend({
   tagName: 'li',
-  className: 'person',
-  id: 'person-id',
 
-  template: template('personTemplate'),
+  events: {
+   'click' : 'showAlert'
 
+  },
+
+  showAlert: function(){
+      alert("You clicked me");
+  },
+
+
+  template: template('personTemplate'), 
   render: function() {
-    this.$el.html( this.template(this.model.toJSON()));
+    this.$el.html( this.template(this.model.toJSON()) );
     return this;
   }
 });
 
-var personCollection = new PersonCollection([
+var peopleCollection = new App.Collections.People([
   {
-      name: 'Mohit Jain',
-      age: 26
+    name: 'Mohit Jain',
+    age: 26
   },
   {
-      name: 'Taroon Tyagi',
-      age: 25,
-      occupation: 'web designer'
+    name: 'Taroon Tyagi',
+    age: 25,
+    occupation: 'web designer'
   },
   {
-      name: 'Rahul Narang',
-      age: 26,
-      occupation: 'Java Developer'
+    name: 'Rahul Narang',
+    age: 26,
+    occupation: 'Java Developer'
   }
 ]);
 
-var peopleView = new PeopleView( {collection: personCollection} );
 
+var peopleView = new App.Views.People({ collection: peopleCollection });
 $(document.body).append(peopleView.render().el);
+})();
