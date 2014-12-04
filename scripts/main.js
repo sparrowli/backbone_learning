@@ -45,7 +45,7 @@ App.Views.Person = Backbone.View.extend({
   tagName: 'li',
 
   events: {
-   'click' : 'showAlert'
+   'click strong' : 'showAlert'
 
   },
 
